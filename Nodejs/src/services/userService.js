@@ -74,8 +74,111 @@ let getAllUsers = (userId) => {
     }
   });
 };
+
+let hashUserPassword = (password) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let hashPassword = await bcrypt.hashSync(password, salt);
+      resolve(hashPassword);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+let createNewUser = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      //check email is exist
+      let check = await checkEmail(data.email);
+      if (check) {
+        resolve({
+          errCode: 1,
+          message: "Your email already exists",
+        });
+      }
+      let hashPasswordFromBcrypt = await hashUserPassword(data.password);
+      data.password = hashPasswordFromBcrypt;
+      await db.User.create({
+        email: data.email,
+        password: hashPasswordFromBcrypt,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        address: data.address,
+        phonenumber: data.phonenumber,
+        gender: data.gender === "1" ? true : false,
+        roleId: data.roleId,
+      });
+      resolve({
+        errCode: 0,
+        message: "OK",
+      });
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
+
+let deleteUser = (userId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.findOne({ where: { id: userId } });
+      if (!user) {
+        resolve({
+          errCode: 2,
+          errMessage: "User not found",
+        });
+      }
+      await db.User.destroy({
+        where: { id: userId },
+      });
+      resolve({
+        errCode: 0,
+        message: "The user is deleted",
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+let updateUser = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.id) {
+        resolve({
+          errCode: 2,
+          message: "Missing id",
+        });
+      }
+      let user = await db.User.findOne({ where: { id: data.id }, raw: false });
+      if (user) {
+        user.firstName = data.firstName;
+        user.lastName = data.lastName;
+        user.address = data.address;
+        await db.User.save();
+        resolve({
+          errCode: 0,
+          message: "Update user successfully",
+        });
+      } else {
+        resolve({
+          errCode: 1,
+          message: "Update user not found",
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   handleUserLogin,
   checkEmail,
   getAllUsers,
+  createNewUser,
+  deleteUser,
+  updateUser,
 };
