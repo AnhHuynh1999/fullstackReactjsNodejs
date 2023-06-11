@@ -7,6 +7,9 @@ const userService = {
   getAllUsers(id) {
     return axios.get(`/api/get-all-users?id=${id}`);
   },
+  createNewUser(data) {
+    return axios.post("/api/create-new-user", data);
+  },
 };
 
 export default userService;
