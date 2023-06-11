@@ -78,7 +78,7 @@ let getAllUsers = (userId) => {
 let hashUserPassword = (password) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let hashPassword = await bcrypt.hashSync(password, salt);
+      let hashPassword = await bcrypt.hashSync(password);
       resolve(hashPassword);
     } catch (error) {
       reject(error);
@@ -157,7 +157,7 @@ let updateUser = (data) => {
         user.firstName = data.firstName;
         user.lastName = data.lastName;
         user.address = data.address;
-        await db.User.save();
+        await user.save();
         resolve({
           errCode: 0,
           message: "Update user successfully",
