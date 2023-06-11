@@ -10,6 +10,9 @@ const userService = {
   createNewUser(data) {
     return axios.post("/api/create-new-user", data);
   },
+  deleteUser(userId) {
+    return axios.delete(`/api/delete-user`, { data: { id: userId } });
+  },
 };
 
 export default userService;
