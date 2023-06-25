@@ -8,7 +8,7 @@ import { changeLanguageApp } from "../../store/actions";
 class HomeHeader extends Component {
   changeLanguage = (language) => {
     //fire redux event : action
-    this.props.changeLanguageAppReact(language);
+    this.props.changeLanguageAppRedux(language);
   };
   render() {
     let language = this.props.lang;
@@ -189,7 +189,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeLanguageAppReact: (language) => dispatch(changeLanguageApp(language)),
+    changeLanguageAppRedux: (language) => dispatch(changeLanguageApp(language)),
   };
 };
 
