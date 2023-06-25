@@ -97,7 +97,7 @@ class UserManage extends Component {
           />
         )}
 
-        <div className="title text-center">Manage uers</div>
+        <div className="title text-center">Manage user</div>
         <div className="mx-1">
           <button
             className="btn btn-primary px-3 mb-2"
