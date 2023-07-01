@@ -16,6 +16,10 @@ const userService = {
   editUser(inputData) {
     return axios.put("/api/edit-user", inputData);
   },
+  getAllCodeService(inputData) {
+    return axios.get(`/api/allcode?type=${inputData}` );
+
+  }
 };
 
 export default userService;
