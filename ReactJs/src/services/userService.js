@@ -17,9 +17,11 @@ const userService = {
     return axios.put("/api/edit-user", inputData);
   },
   getAllCodeService(inputData) {
-    return axios.get(`/api/allcode?type=${inputData}` );
-
-  }
+    return axios.get(`/api/allcode?type=${inputData}`);
+  },
+  getTopDoctorHome(limit) {
+    return axios.get(`/api/top-doctor-home`, {params: { limit: limit}});
+  },
 };
 
 export default userService;

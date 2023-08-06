@@ -208,3 +208,33 @@ export const editUserSuccess = (data) => ({
 export const editUserFailed = () => ({
   type: actionTypes.EDIT_USER_FAILED,
 });
+
+export const fetchTopDoctor = () => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: actionTypes.FETCH_TOP_DOCTOR_START,
+      });
+      let res = await userService.getTopDoctorHome("3");
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_TOP_DOCTOR_SUCCESS,
+          dataDoctor: res.data,
+        });
+        getTopDoctorSuccess()
+      }
+    } catch (error) {
+      toast.error("Get top doctor error");
+      dispatch(getTopDoctorFailed());
+      console.log("Get top doctor error", error);
+    }
+  };
+};
+
+export const getTopDoctorSuccess = (data) => ({
+  type: actionTypes.FETCH_TOP_DOCTOR_SUCCESS,
+});
+
+export const getTopDoctorFailed = () => ({
+  type: actionTypes.FETCH_TOP_DOCTOR_FAILED,
+});
