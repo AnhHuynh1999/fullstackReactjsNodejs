@@ -17,6 +17,10 @@
   // content: "\e258" !important;
 }
 
+.slick-disabled {
+  display: none !important;
+}
+
 .slick-next {
   right: -10 !important;
   z-index: 3;
