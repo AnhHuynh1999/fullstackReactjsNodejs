@@ -19,8 +19,18 @@ const userService = {
   getAllCodeService(inputData) {
     return axios.get(`/api/allcode?type=${inputData}`);
   },
+
   getTopDoctorHome(limit) {
-    return axios.get(`/api/top-doctor-home`, {params: { limit: limit}});
+    return axios.get(`/api/top-doctor-home`, { params: { limit: limit } });
+  },
+  getAllDoctor() {
+    return axios.get(`/api/get-all-doctor`);
+  },
+  saveDetailDoctor(data) {
+    return axios.post("/api/save-infor-doctors", data);
+  },
+  getDetailInforDoctor(id) {
+    return axios.get(`/api/get-detail-doctor-by-id?id=${id}`);
   },
 };
 

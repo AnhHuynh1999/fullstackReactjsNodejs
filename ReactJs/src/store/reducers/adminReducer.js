@@ -6,11 +6,13 @@ const initialState = {
   isLoadingRole: false,
   isLoadingUser: false,
   isLoadingDoctor: false,
+  isLoadingAllDoctor: false,
   genders: [],
   roles: [],
   positions: [],
   users: [],
   topDoctors: [],
+  allDoctors: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -101,6 +103,24 @@ const adminReducer = (state = initialState, action) => {
     case actionTypes.FETCH_TOP_DOCTOR_FAILED:
       state.isLoadingDoctor = false;
       state.topDoctors = [];
+      return {
+        ...state,
+      };
+
+    case actionTypes.FETCH_ALL_DOCTOR_START:
+      state.isLoadingAllDoctor = true;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_DOCTOR_SUCCESS:
+      state.allDoctors = action.dataDoctor;
+      state.isLoadingAllDoctor = false;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_DOCTOR_FAILED:
+      state.isLoadingAllDoctor = false;
+      state.allDoctors = [];
       return {
         ...state,
       };
