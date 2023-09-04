@@ -1,0 +1,1 @@
+cmd docker compose -p baoanh-mysql up -d

@@ -2,3 +2,12 @@
 "dotenv" // lấy các tham số từ file môi trường 
 'view engine' //là ejs
 'sequelize' // kết nối với databases
+
+"build-src": "babel src -d build --copy-files"
+-d: tên thư mục output 
+--copy-files: copy non-javascript files(css, html)
+"build": "node build/server.js"
+
+npm install @babel/node
+npm install @babel/cli
+npm install @babel/core
